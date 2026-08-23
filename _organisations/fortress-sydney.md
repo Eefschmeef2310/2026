@@ -4,7 +4,7 @@ short_name: Fortress Sydney
 slug: fortress-sydney
 order: 7
 people:
-  - name: Katherine Radovan & Sydney
+  - name: Katherine Radovan & Sydney Crew
     url: https://fortress.games/locations#sydney
 groups:
   - venue
