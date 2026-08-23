@@ -28,6 +28,7 @@
     <script src="{{ '/assets/js/navigation.js' | relative_url }}"></script>
     <script src="{{ '/assets/js/hero-icons.js' | relative_url }}"></script>
     {% if page.program_schedule %}
+    <script src="https://cdn.jsdelivr.net/npm/markdown-it@15.0.0/dist/markdown-it.min.js"></script>
     <script src="{{ '/assets/js/program-schedule.js' | relative_url }}?v={{ site.time | date: '%s' }}"></script>
     {% endif %}
     {% if page.organisations %}

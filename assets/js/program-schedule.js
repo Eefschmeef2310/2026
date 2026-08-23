@@ -92,11 +92,18 @@
   function cleanMultilineText(value) {
     return String(value == null ? '' : value)
       .replace(/\r\n?/g, '\n')
-      .split('\n')
-      .map(function (line) { return line.replace(/[ \t]+/g, ' ').trim(); })
-      .join('\n')
       .replace(/\n{3,}/g, '\n\n')
       .trim();
+  }
+
+  const markdown = window.markdownit({
+    html: false,
+    linkify: true,
+    breaks: true,
+  });
+
+  function markdownHtml(value) {
+    return markdown.render(cleanMultilineText(value));
   }
 
   function splitList(value) {
@@ -516,7 +523,7 @@
       '</header>' +
       imageHtml(event) +
       '<div class="schedule-card-about">' + (event.description
-        ? '<p>' + escapeHtml(event.description) + '</p>'
+        ? markdownHtml(event.description)
         : '') + '</div>' +
       '<div class="schedule-card-meta">' +
         metaItem('Games', event.gameKind) +

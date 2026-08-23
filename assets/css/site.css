@@ -717,9 +717,48 @@ a.schedule-ticket:focus-visible { background: var(--ink); }
   padding: 12px 20px 20px;
 }
 
-.schedule-card-about p {
-  margin: 0;
-  white-space: pre-line;
+.schedule-card-about > :first-child { margin-top: 0; }
+.schedule-card-about > :last-child { margin-bottom: 0; }
+
+.schedule-card-about p,
+.schedule-card-about ul,
+.schedule-card-about ol,
+.schedule-card-about blockquote,
+.schedule-card-about pre {
+  margin: 0 0 0.8rem;
+}
+
+.schedule-card-about ul,
+.schedule-card-about ol { padding-left: 1.4rem; }
+
+.schedule-card-about blockquote {
+  padding-left: 0.9rem;
+  border-left: 4px solid var(--orange);
+}
+
+.schedule-card-about code {
+  padding: 0.1em 0.3em;
+  background: #e7e1d7;
+  font-size: 0.9em;
+}
+
+.schedule-card-about pre {
+  padding: 0.75rem;
+  overflow-x: auto;
+  background: #e7e1d7;
+}
+
+.schedule-card-about pre code { padding: 0; }
+
+.schedule-card-about h1,
+.schedule-card-about h2,
+.schedule-card-about h3,
+.schedule-card-about h4,
+.schedule-card-about h5,
+.schedule-card-about h6 {
+  margin: 0 0 0.5rem;
+  font-family: var(--font-subheading);
+  line-height: 1.2;
 }
 
 .schedule-card-meta {
