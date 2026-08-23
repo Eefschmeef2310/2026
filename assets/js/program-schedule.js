@@ -56,6 +56,7 @@
     audiences: new Set(),
     preview: { sample: false, draft: false },
   };
+  const preloadedImages = new Map();
 
   function escapeHtml(value) {
     return String(value == null ? '' : value).replace(/[&<>"']/g, function (character) {
@@ -490,8 +491,55 @@
 
   function imageHtml(event) {
     if (!event.thumbnail) return '';
-    return '<div class="schedule-card-image"><img src="' + escapeHtml(event.thumbnail) + '" alt="' +
+    return '<div class="schedule-card-image"><img src="' + escapeHtml(event.thumbnail) +
+      '" loading="lazy" decoding="async" alt="' +
       escapeHtml(event.title + ' event artwork') + '"></div>';
+  }
+
+  function scheduleEventImagePreload() {
+    const queue = Array.from(new Set(state.events.map(function (event) {
+      return event.thumbnail;
+    }).filter(Boolean)));
+
+    if (!queue.length) return;
+
+    const preloadBatch = function (deadline) {
+      while (queue.length && (deadline.didTimeout || deadline.timeRemaining() > 5)) {
+        const url = queue.shift();
+        if (preloadedImages.has(url)) continue;
+
+        const image = new Image();
+        image.decoding = 'async';
+        image.fetchPriority = 'low';
+        image.src = url;
+        preloadedImages.set(url, image);
+      }
+
+      if (queue.length) window.requestIdleCallback(preloadBatch, { timeout: 2000 });
+    };
+
+    const beginPreloading = function () {
+      if ('requestIdleCallback' in window) {
+        window.requestIdleCallback(preloadBatch, { timeout: 2000 });
+      } else {
+        window.setTimeout(function () {
+          queue.forEach(function (url) {
+            if (preloadedImages.has(url)) return;
+            const image = new Image();
+            image.decoding = 'async';
+            image.fetchPriority = 'low';
+            image.src = url;
+            preloadedImages.set(url, image);
+          });
+        }, 250);
+      }
+    };
+
+    if (document.readyState === 'complete') {
+      beginPreloading();
+    } else {
+      window.addEventListener('load', beginPreloading, { once: true });
+    }
   }
 
   function audienceHtml(event) {
@@ -654,6 +702,7 @@
       });
       state.selectedDay = firstDayWithEvents ? firstDayWithEvents.iso : festivalDays[0].iso;
       render();
+      scheduleEventImagePreload();
     })
     .catch(function (error) {
       console.error('The schedule could not be loaded.', error);
