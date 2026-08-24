@@ -97,14 +97,19 @@
       .trim();
   }
 
-  const markdown = window.markdownit({
-    html: false,
-    linkify: true,
-    breaks: true,
-  });
+  const markdown = typeof window.markdownit === 'function'
+    ? window.markdownit({
+      html: false,
+      linkify: true,
+      breaks: true,
+    })
+    : null;
 
   function markdownHtml(value) {
-    return markdown.render(cleanMultilineText(value));
+    const text = cleanMultilineText(value);
+    return markdown
+      ? markdown.render(text)
+      : '<p>' + escapeHtml(text).replace(/\n/g, '<br>') + '</p>';
   }
 
   function splitList(value) {
