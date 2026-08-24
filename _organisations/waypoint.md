@@ -5,6 +5,7 @@ slug: waypoint
 order: 3
 people:
   - name: Ryan Penning
+    url: https://www.ryanpenning.com/
   - name: Liezl Ronquillo
     url: https://www.linkedin.com/in/liezlartist
 groups:
