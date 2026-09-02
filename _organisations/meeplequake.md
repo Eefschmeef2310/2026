@@ -3,6 +3,9 @@ title: MeepleQuake
 short_name: MeepleQuake
 slug: meeplequake
 order: 15
+people:
+  - name: Thomas James
+    url:
 groups:
   - events
 logo: /assets/images/organisations/meeplequake.jpg

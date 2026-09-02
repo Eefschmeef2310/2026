@@ -37,7 +37,9 @@ permalink: /festival-credits/
 
 {% assign volunteer_people = "" | split: "" %}
 {% for organisation in site.organisations %}
+  {% if organisation.people %}
   {% assign volunteer_people = volunteer_people | concat: organisation.people %}
+  {% endif %}
 {% endfor %}
 {% assign volunteer_people = volunteer_people | uniq | sort: "name" %}
     <ul class="festival-volunteers">
