@@ -48,5 +48,6 @@ social_image: /assets/images/home-hero.jpg
     <p>Events, venues and times are being added as they are confirmed. Explore the current program or join the mailing list for updates.</p>
     <a class="button" href="{{ '/program/' | relative_url }}">See the current program</a>
     <a class="button" href="{{ '/mailing-list/' | relative_url }}">Get program updates</a> 
+    <a class="button" href="{{ '/register-your-event/' | relative_url }}">Register your event</a> 
   </div>
 </section>

@@ -30,7 +30,7 @@ groups:
     description: Groups leading the independent events that make up the festival.
     prominence: standard
     placeholder:
-      title: Your event
+      title: Your Organisation
       description: Bring an independent event into Sydney Games Festival.
       link: /get-involved/
       link_label: Get involved
