@@ -393,7 +393,8 @@
         startMinutes,
         endMinutes
       ),
-      location: pick(row, headers, 'where do you plan'),
+      location: pick(row, headers, 'venue or building name') ||
+        pick(row, headers, 'where do you plan'),
       ticketUrl: cleanUrl(pick(row, headers, 'what url should we direct')),
       thumbnail: cleanImageUrl(pick(row, headers, 'manual url to hero')),
       startTime: startTime,
@@ -464,6 +465,12 @@
     if (event.startMinutes == null) return 'Time to come';
     if (event.endMinutes == null) return formatTime(event.startMinutes);
     return formatTime(event.startMinutes) + ' – ' + formatTime(event.endMinutes);
+  }
+
+  function compareEvents(first, second) {
+    if (first.featured !== second.featured) return first.featured ? -1 : 1;
+    return (first.startMinutes == null ? Infinity : first.startMinutes) -
+      (second.startMinutes == null ? Infinity : second.startMinutes);
   }
 
   function eventDate(event) {
@@ -634,11 +641,7 @@
     const dayEvents = eventsForDay(state.selectedDay);
     const visibleEvents = dayEvents
       .filter(passesAudienceFilter)
-      .sort(function (first, second) {
-        if (first.featured !== second.featured) return first.featured ? -1 : 1;
-        return (first.startMinutes == null ? Infinity : first.startMinutes) -
-          (second.startMinutes == null ? Infinity : second.startMinutes);
-      });
+      .sort(compareEvents);
     const selectedScope = scopes().find(function (scope) { return scope.key === state.selectedDay; });
 
     elements.loading.hidden = true;
