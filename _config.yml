@@ -3,6 +3,8 @@ description: A community-run games festival for Sydney.
 url: "https://sydneygamesfestival.org"
 baseurl: ""
 markdown: kramdown
+plugins:
+  - jekyll-sitemap
 
 collections:
   faqs:
@@ -10,4 +12,3 @@ collections:
   organisations:
     output: false
 
-# GitHub Pages does not need any custom plugins for this site.
