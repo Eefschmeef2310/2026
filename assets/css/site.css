@@ -294,6 +294,10 @@ h1 {
     right: 4%;
     bottom: 18%;
   }
+
+  .site-name {
+    padding: 0px;
+  }
 }
 
 /* Keep large desktop screens close to the proportions of the original site. */
@@ -1848,11 +1852,17 @@ summary {
 
   .site-header .header-content {
     position: fixed;
-    top: 32px;
-    left: 32px;
+    /* top: 32px; */
+    /* left: 32px; */
+    border-radius: 0 0 20px 0;
+    background: var(--paper);
     z-index: 10;
     width: auto;
     min-height: 0;
+  }
+
+  .site-name {
+    padding: 32px;
   }
 
   .primary-nav {
@@ -1912,7 +1922,8 @@ summary {
 
 @media (max-width: 900px) {
   .site-header {
-    position: relative;
+    position: fixed;
+    width: 100%;
     z-index: 10;
   }
 
